@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en" itemscope itemtype="http://schema.org/Person">
+<head>
+  <meta charset="utf-8">
+  <!-- Site Meta Data -->
+  <title>GSoC: So Far</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Avais Pagarkar">
+
+  <link rel="shortcut icon" href="">
+
+  <!-- schema.org -->
+  <meta itemprop="name" content="Avais Pagarkar">
+  <meta itemprop="image" content="">
+  <meta itemprop="description" content="">
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+  <!-- Style Meta Data -->
+  <link rel="stylesheet" href="https://avaisp.github.io/theme/css/style.css" type="text/css" />
+  <link rel="stylesheet" href="https://avaisp.github.io/theme/css/pygments.css" type="text/css" />
+
+  <!-- Feed Meta Data -->
+
+  <!-- Twitter Feed -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="">
+  <meta name="twitter:image" content="">
+
+<meta name="twitter:creator" content="">
+<meta name="twitter:url" content="https://avaisp.github.io/gsoc-so-far.html">
+<meta name="twitter:title" content="Avais Pagarkar ~ GSoC: So Far">
+<meta name="twitter:description" content="Origami I have been working on Origami as a part of Google Summer of Code for the last 2 months. I recently passed my second evaluation. This post serves as a summary of the work that I have done so far. Introduction Origami intends to make research accessible to everyone …">
+
+<!-- Facebook Meta Data -->
+<meta property="og:title" content="Avais Pagarkar ~ GSoC: So Far" />
+<meta property="og:description" content="Origami I have been working on Origami as a part of Google Summer of Code for the last 2 months. I recently passed my second evaluation. This post serves as a summary of the work that I have done so far. Introduction Origami intends to make research accessible to everyone …" />
+<meta property="og:image" content="" />
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <aside>
+    <!--<center><a href="https://avaisp.github.io"><img id="avatar" src=""></a></center>-->
+    <h1>Avais Pagarkar</h1>
+      <p>Developer | ML/NLP Engineer | GSoC 2017</p>
+    <br>
+
+
+    <nav class="nav">
+      <ul class="list-bare">
+      
+          <li><a class="nav__link" href="https://avaisp.github.io">Blog</a></li>
+          <li><a class="nav__link" href="https://avaisp.github.io/pages/about">About</a></li>
+         
+        
+      </ul>
+    </nav>
+
+    <p class="social">
+        <a href="https://www.linkedin.com/in/avaisp" target="_blank" ><img src="https://avaisp.github.io/theme/images/icons/linkedin.png"></a>
+        <a href="https://github.com/AvaisP" target="_blank" ><img src="https://avaisp.github.io/theme/images/icons/github.png"></a>
+        <a href="https://www.facebook.com/avais.pagarkar" target="_blank" ><img src="https://avaisp.github.io/theme/images/icons/facebook.png"></a>
+    </p>
+
+    <h2>Categories</h2>
+    <ul class="navbar">
+      <li class="active"><a href="https://avaisp.github.io/category/gsoc.html">GSoC</a></li>
+    </ul> 
+
+
+  </aside>
+
+  <!-- Content -->
+  <article>
+<section id="content">
+    <article>
+        <h2 class="post_title post_detail"><a href="https://avaisp.github.io/gsoc-so-far.html" rel="bookmark" title="Permalink to GSoC: So Far">GSoC: So Far</a></h2>
+        <div class="entry-content blog-post">
+            <h2>Origami</h2>
+<p>I have been working on <a href="https://github.com/Cloud-CV/Origami">Origami</a> as a part of Google Summer of Code for the last 2 months. I recently passed my second evaluation. This post serves as a summary of the work that I have done so far. </p>
+<h3>Introduction</h3>
+<p>Origami intends to make research accessible to everyone. It allows you to build a web based demo of your Machine Learning / Computer Vision project. Users don't need to set up your code on their local machines, instead they can visit the demo page on Origami and test if your algorithm meets their need. </p>
+<p>Origami also allows you to view all the demos of a user thus serving as a portfolio for ML researchers. </p>
+<h3>Project Details</h3>
+<p>After a few discussions with my mentors,  we decided to implement the following features by the end of the GSoC period.</p>
+<h4>Features to be implemented</h4>
+<ul>
+<li>Translate backend from NodeJS to Django</li>
+<li>Set up continuous integration with TravisCI</li>
+<li>Write tests for the APIs</li>
+<li>Completely change the UI</li>
+<li>Allowing users to search for demos and users</li>
+<li>Dockerize the application</li>
+<li>Unifying the component creation process</li>
+<li>Shifting the docs to <a href="https://readthedocs.org/">read the docs</a>  </li>
+<li>Releasing origami-lib as a pip package</li>
+<li>Allowing mixing of components </li>
+<li>Creating demos using drag and drop</li>
+</ul>
+<p>So far, I've completed everything but the last 2 features. Let's take a look at each of the implemented features</p>
+<h4>Translate backend from NodeJS to Django</h4>
+<p>This was the first feature I worked on and was by far the toughest and most time consuming. Origami's backend was written in NodeJS. We needed to translate it to Django as all the other projects of <a href="http://cloudcv.org/">CloudCV</a> were in Django and this would help with maintaining the code in the future. </p>
+<p>Earlier Origami used NodeJS along with <a href="https://socket.io/">socket.io</a> for socket communications with the hosted demo along with a Non relation database (MongoDB). </p>
+<p>We decided to continue using MongoDB with Django with the help of <a href="https://github.com/umutbozkurt/django-rest-framework-mongoengine">DRF-Mongo</a>. After a little over a week of using it, we realized it wasn't feasible as Mongoengine 0.9 was broken and wouldn't allow us to access the admin panel. The fix was in django-mongoengine which is an unstable project. We finally decided to switch to PostgreSQL. </p>
+<p>The next step was to translate the socket communications. For that, I used <a href="https://channels.readthedocs.io/">Django Channels</a>. This was my first time working with Django channels and after a couple of days of reading and discussing about it with my mentor, I was able to start the translation which took another 2 days. </p>
+<p>Then, we moved to integrating React and Webpack with Django which again was a first for me. I used <code>django-webpack-loader</code> for this and it was done in under a week. </p>
+<p>With that, the first major feature of my project was done.</p>
+<h4>Writing tests for APIs</h4>
+<p>At the start of GSoC, Origami had no tests. This was something we wanted to change. </p>
+<p>Once I was done translating the APIs with the help of Django Rest Framework, I wrote a test for each API. It took about 2 days to complete.</p>
+<h4>Set up continuous integration with TravisCI</h4>
+<p>After writing the tests, the next step was to setup continuous integration to make reviewing Pull requests easier. This was again a very quick feature and didn't take more than a day to implement and merge. </p>
+<h4>Completely change the UI</h4>
+<p>The older UI was based on <a href="http://www.material-ui.com/">material-ui</a> and <a href="https://react.semantic-ui.com/">semantic-ui</a> . Both of these packages were heavy and incomplete. This lead to an increase in package size and inconsistent UI. Additionally, the navigation was in disarray. While the app worked, the user experience wasn't very good. So we decided to go with <a href="https://ant.design/">Ant Design</a>. The goal was to rewrite the UI completely in Ant. This involved making mockups during and after the community bonding period. </p>
+<p>I had no previous experience designing the UI so this was a difficult task. I would prepare a mockup for a page and post it on the channel where the mentors would give suggestions which I would later implement. We repeated this for all the pages. Once the mockups were ready, I would write the code for it using React and Antd. I have now integrated most of these pages into the main app. </p>
+<h4>Allowing users to search for demos and users</h4>
+<p>Earlier users were only able to access their demos through the app or the demos whose permalinks they had received. This restricted the users in the sense that they weren't able to search for demos of code they would be interested in.  This was changed by creating a new "discover" page to allow searching for all demos. The users can also search for demos of a particular user. </p>
+<h4>Dockerize the application</h4>
+<p>Origami, after translation, had multiple dependencies including nginx, postgres, redis and the origami web app itself. Thus, deploying Origami to a server was a pain. We therefore decided to start using docker. I had last worked with Docker over a year ago so I had to brush up on a few things. Once I was done with that, I created a Dockerfile for the webapp and a docker-compose script for the other dependencies. </p>
+<h4>Unifying the component creation process</h4>
+<p>Creating new input and output components involved copy pasting a lot of code from the already created component. This lead to a lot of extra code. It also made the component creating process cumbersome as we needed to take care that changes made in one component were reflected in all the other components as well. We decided to tackle this by creating a base input/output component from which new components could inherit thus eliminating the need to copy paste code.</p>
+<p>The bulk of the time was spent on identifying the blocks of code that needed to be added to the base components. This was followed by making sure the structure of the base component was easy to understand and use. </p>
+<h4>Shifting the docs to read the docs</h4>
+<p>Earlier the docs were a part of the app. This increased the bundle size and had no real advantage. We moved our docs to sphinx and it is now hosted on <a href="http://cloudcv-origami.readthedocs.io/en/latest/">Read the docs</a>. </p>
+<h3>Conclusion</h3>
+<p>Working as a part of GSoC over the last 2 months has been an amazing experience. Not only have I been learning a lot of tools, I have also learned a lot of other skills like following proper coding conventions and keeping the bundle size of the frontend as small as possible. I have been able to implement most of the decided features and I feel I should be able to complete the rest by the end of GSoC. </p>
+<h5>PS: I will soon be writing a post on how to go about integrating Django, Django Rest Framework, React, Webpack and docker. If you're interested in that, continue checking the blog! :D</h5>
+        </div>
+        <div class="post_list">
+            <span>By </span>
+            <a href="https://avaisp.github.io/author/avais-pagarkar.html">@Avais Pagarkar</a>
+            <span> in </span>
+            <span class="post_category"><a href="https://avaisp.github.io/category/gsoc.html" rel="bookmark" title="Permalink to GSoC">[ GSoC ]</a></span>
+            <span class="post_date">Sun 06 August 2017</span>
+            <div><span>Tags : </span>
+            </div>
+
+            <div class="entry-social">
+                <span class="twitter"><a target="_blank" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=700');return false;" title="Twitter" href="https://twitter.com/share?url=https://avaisp.github.io/gsoc-so-far.html&text=GSoC: So Far&via="><img src="https://avaisp.github.io/theme/images/icons/twitter-s.png"></a></span>
+
+                <span class="gplus"><a target="_blank" title="Google +" href="https://plus.google.com/share?url=https://avaisp.github.io/gsoc-so-far.html&hl=fr" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=650');return false;"><img src="https://avaisp.github.io/theme/images/icons/google-s.png"></a></span>
+
+                <span class="facebook"><a target="_blank" title="Facebook" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;" href="https://www.facebook.com/sharer.php?u=https://avaisp.github.io/gsoc-so-far.html&t=GSoC: So Far"><img src="https://avaisp.github.io/theme/images/icons/facebook-s.png"></a></span>
+
+                <a  target="_blank" title="Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https://avaisp.github.io/gsoc-so-far.html&title=GSoC: So Far" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=650');return false;"><img src="https://avaisp.github.io/theme/images/icons/linkedin-s.png"></a>
+
+                <span class="mail"><a href="mailto:?subject=GSoC: So Far&amp;body=Viens découvrir un article à propos de [GSoC: So Far] sur le site de Avais Pagarkar. https://avaisp.github.io/gsoc-so-far.html" title="Share by Email" target="_blank"><img src="https://avaisp.github.io/theme/images/icons/mail-s.png"></a></span>
+            </div>
+        </div>
+    </article>
+</section>
+  </article>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      Blog powered by <a href="http://getpelican.com/">Pelican</a>, 
+      which takes great advantage of <a href="http://python.org">Python</a>.
+      Theme <a href="https://github.com/parbhat/pelican-blue">Pelican-Blue</a> by <a href="https://parbhatpuri.com/">@parbhat</a>.
+    </p>
+  </footer>
+
+
+</body>
+</html>
